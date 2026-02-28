@@ -8,6 +8,9 @@
 <body>
 
 <h2>Student Placement Prediction</h2>
+    <h3>Feedback</h3>
+<textarea id="feedback"></textarea>
+<button onclick="submitFeedback()">Submit</button>
 
 <form id="predictionForm">
     <input type="number" id="tenth" placeholder="10th %" required>
@@ -26,6 +29,8 @@
     </select>
 
     <button type="submit">Predict</button>
+    <button onclick="evaluateModel()">Evaluate Model</button>
+    <button onclick="toggleTheme()">Toggle Theme</button>
 </form>
 
 <h3 id="result"></h3>
