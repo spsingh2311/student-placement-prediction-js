@@ -1,3 +1,4 @@
+
 body{
     font-family: Arial;
     text-align: center;
@@ -29,4 +30,21 @@ button{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background:#f3f2f1;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    width:500px;
+    margin:auto;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+.dark{
+    background:#1b1a19;
+    color:white;
 }
