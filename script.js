@@ -40,3 +40,66 @@ document.getElementById("predictionForm")
         }
     });
 });
+let weights = [0,0,0,0,0,0,0]; 
+let learningRate = 0.0001;
+let epochs = 1000;
+let trainingData = [];
+
+function sigmoid(z){
+    return 1 / (1 + Math.exp(-z));
+}
+
+function trainModel(){
+    const fileInput = document.getElementById("csvFile");
+    const file = fileInput.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = function(e){
+        const lines = e.target.result.split("\n");
+
+        trainingData = [];
+
+        for(let i=1;i<lines.length;i++){
+            let row = lines[i].split(",");
+            if(row.length < 7) continue;
+
+            let x = [
+                1,
+                parseFloat(row[0]),
+                parseFloat(row[1]),
+                parseFloat(row[2]),
+                parseFloat(row[3]),
+                parseFloat(row[4]),
+                parseFloat(row[5])
+            ];
+            let y = parseInt(row[6]);
+
+            trainingData.push({x,y});
+        }
+
+        gradientDescent();
+        document.getElementById("trainingStatus").innerText = 
+            "Model trained successfully!";
+    };
+
+    reader.readAsText(file);
+}
+
+function gradientDescent(){
+    for(let e=0;e<epochs;e++){
+        for(let data of trainingData){
+            let z = 0;
+            for(let i=0;i<weights.length;i++){
+                z += weights[i] * data.x[i];
+            }
+
+            let prediction = sigmoid(z);
+            let error = prediction - data.y;
+
+            for(let i=0;i<weights.length;i++){
+                weights[i] -= learningRate * error * data.x[i];
+            }
+        }
+    }
+}
