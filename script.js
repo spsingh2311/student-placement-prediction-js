@@ -103,3 +103,61 @@ function gradientDescent(){
         }
     }
 }
+function evaluateModel(){
+    let TP=0, TN=0, FP=0, FN=0;
+
+    for(let data of trainingData){
+        let z = 0;
+        for(let i=0;i<weights.length;i++){
+            z += weights[i] * data.x[i];
+        }
+
+        let prediction = sigmoid(z) >= 0.5 ? 1 : 0;
+
+        if(prediction===1 && data.y===1) TP++;
+        if(prediction===0 && data.y===0) TN++;
+        if(prediction===1 && data.y===0) FP++;
+        if(prediction===0 && data.y===1) FN++;
+    }
+
+    let accuracy = ((TP+TN)/trainingData.length)*100;
+
+    alert("Accuracy: " + accuracy.toFixed(2) + "%\n" +
+          "TP:"+TP+" TN:"+TN+" FP:"+FP+" FN:"+FN);
+}
+function toggleTheme(){
+    document.body.classList.toggle("dark");
+}
+let count = localStorage.getItem("userCount") || 0;
+count++;
+localStorage.setItem("userCount", count);
+
+document.body.insertAdjacentHTML("beforeend",
+"<p>Total Users: "+count+"</p>");
+function submitFeedback(){
+    let feedback = document.getElementById("feedback").value;
+    let list = JSON.parse(localStorage.getItem("feedbackList")) || [];
+    list.push(feedback);
+    localStorage.setItem("feedbackList", JSON.stringify(list));
+    alert("Thank you for feedback!");
+}
+function suggestSkills(cgpa, projects, internship){
+    let suggestions = [];
+
+    if(projects < 3)
+        suggestions.push("Build more real-world projects");
+
+    if(internship == 0)
+        suggestions.push("Apply for internships");
+
+    if(cgpa < 7)
+        suggestions.push("Improve core fundamentals");
+
+    suggestions.push("Learn: Java, Data Structures, System Design");
+    suggestions.push("Practice on LeetCode & CodeStudio");
+
+    return suggestions;
+}
+let skills = suggestSkills(cgpa, projects, internship);
+document.getElementById("result").innerHTML +=
+"<br><br><b>Market Demand Suggestions:</b><br>" + skills.join("<br>");
