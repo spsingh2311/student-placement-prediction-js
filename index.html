@@ -15,6 +15,10 @@
     <input type="number" id="cgpa" placeholder="CGPA" step="0.01" required>
     <input type="number" id="communication" placeholder="Communication (1-10)" required>
     <input type="number" id="projects" placeholder="Projects Completed" required>
+    <input type="file" id="csvFile" accept=".csv">
+<button onclick="trainModel()">Train Model</button>
+
+<p id="trainingStatus"></p>
 
     <select id="internship">
         <option value="1">Internship Done</option>
